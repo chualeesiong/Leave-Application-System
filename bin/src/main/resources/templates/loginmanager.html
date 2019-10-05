@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Manager Login page</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body id="login-body">
+<div class="container">
+<img src="/images/bg1.png" alt="Manager Login page" height="250" width="500" align="middle">
+</div>
+<div class="container">
+	<div>
+		<form class="form-horizontal" th:object="${manager}"
+			th:action="@{/authenticateManager}" method="post">
+			<div id="login-form">
+				<label class="col-sm-2 control-label">Manager</label><br>				
+				<input type="text" class="form-control" id="login-text" th:field="*{userid}" placeholder="Enter Username"/>				
+				<label class="col-sm-2 control-label">Password</label><br>				
+				<input type="password" class="form-control" id="login-password" th:field="*{password}" placeholder="Enter Password"/>					
+				<button type="submit" class="button" id="login-btn">Login</button>					
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>

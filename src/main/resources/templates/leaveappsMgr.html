@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Leave Applications</title>
+ <link th:href="@{/css/bootstrap.min.css}"
+          href="../../static/css/bootstrap.min.css"
+          rel="stylesheet" media="screen" />
+<th:block th:include="/layout/mgr_header"></th:block>
+<link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css" />  
+</head>
+<body>
+<div class="container">
+	<h4>View Leave Applications</h4>
+	<table class="table table-striped">
+		<tr>
+			<th style="display:none;">Leave Id</th>
+			<th>Employee Name</th>
+			<th>Date of Application</th>
+			<th>Start Date</th>
+			<th>End Date</th>
+			<th>Reason</th>
+			<th>Leave Status</th>
+			<th>Action</th>
+		</tr>
+		<tr th:each="leave : ${leaves}">
+		
+			<td style="display:none;" th:field="${leave.LeaveId}" th:value="${leave.LeaveId}">Leave Id</td>
+			<td th:text="${empdict.get(leave.employeeId).employeeName}">Employee Name</td>
+			<td th:text="${leave.dateOfApplication}">Date of Application</td>
+			<td th:text="${leave.startDate}">Start Date</td>
+			<td th:text="${leave.endDate}">End Date</td>
+			<td th:text="${leave.reason}">Reason</td>
+			<td th:text="${leave.status}">Leave Status</td>               
+            <td>
+            	<a th:href="${'/updateleave/'+ manager.mgrId + '/' + leave.getLeaveId()}" class="btn btn-default">Update</a>
+            </td>
+		</tr>
+	</table>	
+</div>
+</body>
+<th:block th:include="/layout/footer"></th:block>
+</html>

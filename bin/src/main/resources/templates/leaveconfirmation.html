@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Confirmation page</title>
+<th:block th:include="/layout/header"></th:block>
+</head>
+<body>
+<div class="container">
+    <div th:fragment="header">
+     <div class="jumbotron" >
+	<p th:text="'Hello, ' + ${employee.employeeName} + '!'">
+	<h1>Leave Application Received</h1>
+	<p>Please check the details of your application below. If you have any questions, please contact the Human Resource Department. </p>
+	
+	<div th:object="${employee}">
+					<p th:text="'Annual Leave Balance: ' + *{annualLeaveBalance}">
+					<p th:text="'Medical Leave Balance: ' + *{medicalLeaveBalance}">
+					<p th:text="'Compensation Leave Balance: ' + *{compLeaveBalance}">
+				</div>
+				
+	<table>
+		<tr>
+			<th>Reference number</th>
+			<th>Days applied</th>
+			<th>Date of application</th>
+			<th>Start date of leave</th>
+			<th>End date of leave</th>
+			<th>Reason for application</th>
+			<th>Arrangements for your work duties</th>
+			<th>Your contact no</th>
+			<th>Manager comments</th>
+			<th>Leave type</th>	
+			<th>Application status</th>		
+		</tr>
+		<tr th:object=${leave}>
+			<td th:text="${leave.leaveId}">Error</td>
+			<td th:text="${leave.daysApplied}">Error</td>
+			<td th:text="${leave.dateOfApplication}">Error</td>
+			<td th:text="${leave.startDate}">Error</td>
+			<td th:text="${leave.endDate}">Error</td>
+			<td th:text="${leave.reason}">Error</td>
+			<td th:text="${leave.workDissemination}">Error</td>
+			<td th:text="${leave.contactNo}">Error</td>
+			<td th:text="${leave.managerComments}">Error</td>
+			<td th:text="${leave.type}">Error</td>
+			<td th:text="${leave.status}">Error</td>
+			<td><a th:if="${leave.status !='Rejected' and leave.status !='Approved'}" th:href="${'/leave/edit/' + leave.leaveId}" class="btn btn-danger">Edit</a></td>
+            <td><a th:if="${leave.status !='Rejected' and leave.status !='Approved'}" th:href="${'/leave/delete/' + leave.leaveId}" class="btn btn-danger">Delete</a></td>
+            <td><a th:if="${leave.status !='Rejected'}" th:href="${'/leave/cancel/' + leave.leaveId}" class="btn btn-danger">Cancel</a></td>
+		</tr>
+	</table>
+	<p></p>
+	<p><a th:href="${'/leaveform/' + employee.employeeId}" class="btn btn-default">Back to leave form</a></p>
+	
+	</div>
+	</div>
+	</div>
+</body>
+</html>

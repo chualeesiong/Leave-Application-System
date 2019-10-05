@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Login page</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body id="login-body">
+<div class="container">
+<img src="/images/bg1.png" alt="Employee Login page" height="250" width="500" align="middle">
+</div>
+<div class="container">
+		<div>
+			<form class="form-horizontal" th:object="${employee}" th:action="@{/authenticateEmployee}" method="post">
+				<div id="login-form">
+					<div>
+						<label class="col-sm-2 control-label">Employee</label><br>
+						<input type="text" class="form-control" id="login-text" th:field="*{userId}" placeholder="Enter Username"/>
+                	</div>
+                    <div>
+						<label class="col-sm-2 control-label">Password</label><br>
+						<input type="password" class="form-control" id="login-password" th:field="*{password}" placeholder="Enter Password"/>					
+					</div>
+					<button type="submit" class="button" id="login-btn">Login</button>
+					<span id="red" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span><br>	                	
+	                <span id="red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span><br>
+	                <span id="red" th:if="${logError != null}">Wrong username or password</span>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>LAPS Leave Form</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+<th:block th:include="/layout/header"></th:block>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script>
+	$(document).ready(function(){
+	  var minDate = new Date();
+	  
+	  $("#tryStart").datepicker({
+	    dateFormat:'yy-mm-dd',
+	    
+	    changeMonth:true,
+	    changeYear:true,
+	    minDate:minDate,
+	    onClose: function(selectedDate){
+	    	$("#tryEnd").datepicker("option", "minDate", selectedDate);
+	    }
+	  })
+	  
+	  $("#tryEnd").datepicker({
+		  dateFormat:'yy-mm-dd',
+		    changeMonth:true,
+		    changeYear:true,
+		    minDate: document.getElementById($("#tryStart"))
+	  })
+	});
+</script>
+</head>
+<body>
+<div class="container">
+    <div th:fragment="header">
+<p><b>Choose a job you love, and you will never have to take a day of leave in your life - Unknown wise dude. </b> </p>
+
+<!-- <p th:text= " 'Date of application: ' + ${leave.dateOfApplication}"/> -->
+	
+		<div>
+			<form class="form-horizontal" th:object="${leave}"
+				th:action="@{/leaveconfirmation/} + ${employee.employeeId}" method="post">
+				<div th:object="${employee}">
+					<p th:text="'Hello, ' + *{employeeName} + '!'">
+					<p th:text="'Annual Leave Balance: ' + *{annualLeaveBalance}">
+					<p th:text="'Medical Leave Balance: ' + *{medicalLeaveBalance}">
+					<p th:text="'Compensation Leave Balance: ' + *{compLeaveBalance}">
+				</div>
+				<div class="form-group">
+					<div class="col-sm-10">
+						<input type="hidden" class="form-control" th:field="*{leaveId}" />
+					</div>
+				</div>				
+				<div class="form-group">
+					<div class="col-sm-10">
+						<input type="hidden" class="form-control" th:field="*{daysApplied}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-10">
+						<input type="hidden" class="form-control" th:field="*{dateOfApplication}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Leave Start Date:</label>
+					<div class="col-sm-10">
+						<input type="text" id="tryStart"  class="form-control" th:field="*{startDate}"/>
+						<span id="red" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">startDate</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Leave End Date:</label>
+					<div class="col-sm-10">
+						<input type="text" id="tryEnd" class="form-control" th:field="*{endDate}"/>
+						<span id="red" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}">endDate</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-10">
+						<input type="hidden" class="form-control" th:field="*{status}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Reason for applying leave:</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" th:field="*{reason}" />
+						<span id="red" th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}">Reason</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Work Duties hand over to:</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" th:field="*{workDissemination}" />
+						<span id="red" th:if="${#fields.hasErrors('workDissemination')}" th:errors="*{workDissemination}">Reason</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Your contact no while overseas:</label>
+					<div class="col-sm-10">
+						<input type="text" id="contact" class="form-control" th:field="*{contactNo}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-10">
+						<input type="hidden" class="form-control" th:field="*{managerComments}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Type of leave</label>
+					<div class="col-sm-10">
+						<select th:field="*{type}"  >
+							<option th:each="type:${listofLeaveTypes}" th:value=${type} th:text=${type}>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2">
+						<button id = "button" type="submit" class="btn btn-primary">Save</button>
+					</div>
+				</div>
+
+			</form>
+		</div>
+	</div>
+		</div>
+</body>
+<th:block th:include="/layout/footer"></th:block>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Manager Leave Detail</title>
+<th:block th:include="/layout/mgr_header"></th:block>
+</head>
+<body>
+	<div class="container">
+		<form action="#" th:action="@{/leaveapplications/{name}(name=${manager.mgrId})}" th:object="${updateleave}" method="post">
+			<div class="form-group">
+				<input type="hidden" class="form-control" th:field="*{leaveId}" />
+			</div>
+			<div class="form-group">
+			<label class="col-sm-2 control-label">Days Applied:</label>
+				<div class="col-sm-10">
+					<label th:text="*{daysApplied}"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Leave Type: </label>
+				<div class="col-sm-10">
+					<label th:text="*{type}"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Date of Application:</label>
+				<div class="col-sm-10">
+					<label th:text="*{dateOfApplication}"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Start Date:</label>
+				<div class="col-sm-10">
+					<label th:text="*{startDate}"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">End Date:</label>
+				<div class="col-sm-10">
+					<label th:text="*{endDate}"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Reason:</label>
+				<div class="col-sm-10">
+					<label th:text="*{reason}"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Work Dissemination:</label>
+				<div class="col-sm-10">
+					 <label th:text="*{workDissemination}"></label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Contact No:</label>
+				<div class="col-sm-10">
+					<label th:text="*{contactNo}"></label>
+				</div>
+			</div>
+						<div class="form-group">
+				<label class="col-sm-2 control-label">Manager Comments:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:field="*{managerComments} ">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Leave Status:</label>
+				<div class="col-sm-10">
+					<select th:field="*{status}">
+						<option th:value="'Applied'" th:text="Applied"></option>
+						<option th:value="'Approved'" th:text="Approved"></option>
+						<option th:value="'Rejected'" th:text="Rejected"></option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label"></label>
+				<div class="col-sm-10">
+					<button name="update leaveapp" type="submit" class="btn btn-primary" value="0">Update</button>
+				</div>
+				
+			</div>
+		</form>
+	</div>
+</body>
+</html>
